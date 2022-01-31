@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>AngularCodingAssessment</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+  <label id=Error></label>
+  <div id="form">
+    <h1>hello</h1>
+    <label><strong>Email Address</strong></label>
+    <br/>
+    <input type="text"id="Email" class="UserInput"/>
+    <label id=Invalid style="color:red; visibility: hidden;"></label>
+    <br/>
+    <br/>
+    <label><strong>Email Address</strong></label>
+    <br/>
+    <input type="text"id="Confirm"  class="UserInput"/>
+    <label id=ConfirmInvalid style="color:red; visibility: hidden;"></label>
+    <br/>
+    <br/>
+    <label for="Status"><strong>Choose your status level</strong></label>
+    <br/>
+    <select name="status" id=Status  class="UserInput">
+      <option value="Platinum Pro">Platinum Pro</option>
+      <option value="Executive Platinum">Executive Platinum</option>
+      <option value="Platinum">Platinum</option>
+    </select>
+    <br/>
+    <br/>
+    <label name="Password" id="Passwordtext"><strong>Password</strong></label>
+    <br/>
+    <input type="password" id=Password  class="UserInput"/>
+    <label id="PassRequire" style="color: red; visibility: hidden;"></label>
+    <br/>
+    <br/>
+    <button type="button" id="Submit" name="button" onclick="SubmitFunction()"><strong>Submit Form</strong></button>
+    <br/>
+    <br/>
+    <button type="button" id="clear" onclick="Clear()" name="button"><strong>Clear</strong></button>
+    </div>
+    <div id="Warning">
+      <label id="Message" style="color: white;">Are you sure you would like to clear the form</label>
+      <div id="ClearForm" style=" margin-top: 75px;">
+        <button type="button" onclick="Yes()" style="font-size: 40px; margin-left: 175px;" id="yes">Yes</button>
+        <button type="button" onclick="No()" style="font-size: 40px;" id="no">No</button>
+      </div>
+    </div>
+  <app-root>
+  
+  </app-root>
+
+</body>
+<script type="text/javascript">
+const SpecialCharacter  = /[`!@#$%^&*]/;
+
+var Invalid = document.getElementById("Invalid");
+
+var Email = document.getElementById("Email");
+
+var Confirm = document.getElementById("Confirm");
+
+var Password = document.getElementById("Password");
+
+var PassRequire = document.getElementById("PassRequire");
+
+var clear = document.getElementById("Warning");
+
+  function SubmitFunction() {
+  if(Password.value.length < 8){
+    Password.style.borderColor = "red";
+    PassRequire.style.visibility = "visible";
+    PassRequire.innerHTML = "Password must be 8 characters";
+  }
+  else if(!Password.value.match(SpecialCharacter))
+  {
+      Password.style.borderColor = "red";
+      PassRequire.style.visibility = "visible";
+      PassRequire.innerHTML = "Must contain a special character";
+  }else{
+      PassRequire.style.visibility = "hidden"
+      Password.style.borderColor = "blue"
+  }
+  
+
+  if(!Email.value.includes(".com") || !Email.value.includes("@"))
+  {
+     Invalid.innerHTML = "Invalid Email"
+     Invalid.style.visibility = "visible";
+     Email.style.borderColor = "red";
+  }
+  else
+  {
+    Invalid.style.visibility = "hidden";
+     Email.style.borderColor = "blue";
+  }
+  if(!Confirm.value.includes(".com") || !Confirm.value.includes("@"))
+  {
+     ConfirmInvalid.innerHTML = "Invalid Email"
+     ConfirmInvalid.style.visibility = "visible";
+     Confirm.style.borderColor = "red";
+  }else{
+     ConfirmInvalid.style.visibility = "hidden";
+     Confirm.style.borderColor = "blue";
+  }
+    if(Email.value != Confirm.value){
+       ConfirmInvalid.innerHTML = "Emails must match";
+       Confirm.style.borderColor = "red";
+       document.getElementById("ConfirmInvalid").style.visibility = "visible";
+     }
+
+  if(Email.style.borderColor == "red" || Confirm.style.borderColor == "red"
+   || Password.style.borderColor == "red")
+  {
+    document.getElementById("Error").innerHTML = "Please correct the below errors";
+  }
+  else{
+    window.open("www.google.com");
+    location.replace("~/NextPage.html");
+  }
+
+}
+
+function Clear(){
+  clear.style.visibility = "visible"
+}
+
+function Yes(){
+    
+    Email.value = "";
+    Confirm.value = "";
+    Password.value = "";
+      
+    Invalid.style.visibility = "hidden";
+    ConfirmInvalid.style.visibility = "hidden";
+    PassRequire.style.visibility = "hidden";
+    document.getElementById("Error").style.visibility = "hidden";
+    Email.style.borderColor = "blue";
+    Confirm.style.borderColor = "blue";
+    Password.style.borderColor = "blue";
+ 
+    clear.style.visibility = "hidden"
+}
+
+function No(){
+  clear.style.visibility = "hidden"
+}
+</script>
+</html>
